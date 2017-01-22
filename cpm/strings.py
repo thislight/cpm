@@ -1,0 +1,1 @@
+CPMFILE = 'cpmfile.json'
