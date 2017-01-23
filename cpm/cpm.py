@@ -21,6 +21,7 @@ import json
 import argparse
 from os import path
 from . import utils
+from . import errors
 from subprocess import Popen,PIPE
 
 
@@ -32,7 +33,7 @@ def local_compile(path,quiet=False):
 			utils.printex("[CompileProcess]: {line}".format(line=l))
 		code = proc.wait()
 		if code != 0:
-			raise Exception("Return code is not zero") # TODO(thislight) CompileException
+			raise errors.CompileException("Return code is not zero")
 		else:
 			return True
 
@@ -45,7 +46,7 @@ def local_install(path,quiet=False):
 			utils.printex("[InstallProcess]: {line}".format(line=l))
 		code = proc.wait()
 		if code != 0:
-			raise Excption("Return code is not zero") # TODO(thislight) InstallException
+			raise errors.InstallExcption("Return code is not zero")
 		else:
 			return True
 
