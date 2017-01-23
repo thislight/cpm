@@ -36,7 +36,7 @@ Example:
 Installing python
 [...]
 ````
-cpm will read <path>/cpmfile.json to get infomation.
+cpm will read \<path\>/cpmfile.json to get infomation.
 A basic cpmfile.json example:
 ````json
 {
