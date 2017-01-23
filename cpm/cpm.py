@@ -1,6 +1,6 @@
 #!/usr/env/bin python3
 """
-    cpm - Make setup compiling required program easy
+    cpm - Make compilation easy
     Copyright (C) 2016  thislight
 
     This program is free software: you can redistribute it and/or modify
