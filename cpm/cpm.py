@@ -61,6 +61,7 @@ def main():
     parser.add_argument('--quiet','-q',action='store_true',default=False,help='Stop print infomation',dest='isquiet')
     args = parser.parse_args()
     # ...
+    utils.printex('Please wait...',args.isquiet)
     if args.op == "install":
         for v in args.path:
             local_compile(v,args.isquiet)
