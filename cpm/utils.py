@@ -40,3 +40,6 @@ def printex(s,isquiet=False):
 
 def runin_path(x,p):
 	return Popen(x, stdout=PIPE, shell=True, cwd=p)
+
+def is_str_empty(s):
+    return (not s) or (len(s)==0)

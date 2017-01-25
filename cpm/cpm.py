@@ -27,6 +27,9 @@ from subprocess import Popen,PIPE
 
 def local_compile(path,quiet=False):
     pk_info = utils.cpmfile(path)
+    if utils.is_str_empty(pk_info.get('compile',None)):
+        utils.printex('Compile passed, compile module is empty.',quiet)
+        return True
     utils.printex("Compiling {name}...".format(name=pk_info['name']),quiet)
     with utils.runin_path(pk_info['compile'],path) as proc:
         for l in proc.stdout:
