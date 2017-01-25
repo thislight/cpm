@@ -72,5 +72,9 @@ def main():
     else:
         print("I don't know how can i do.(x o x)")
 
+
+def __main__():
+    main()
+
 if __name__ == "__main__":
     main()
