@@ -26,47 +26,47 @@ from subprocess import Popen,PIPE
 
 
 def local_compile(path,quiet=False):
-	pk_info = utils.cpmfile(path)
-	utils.printex("Compiling {name}...".format(name=pk_info['name']),quiet)
-	with utils.runin_path(pk_info['compile'],path) as proc:
-		for l in proc.stdout:
-			utils.printex("[CompileProcess]: {line}".format(line=l))
-		code = proc.wait()
-		if code != 0:
-			raise errors.CompileException("Return code is not zero")
-		else:
-			return True
+    pk_info = utils.cpmfile(path)
+    utils.printex("Compiling {name}...".format(name=pk_info['name']),quiet)
+    with utils.runin_path(pk_info['compile'],path) as proc:
+        for l in proc.stdout:
+            utils.printex("[CompileProcess]: {line}".format(line=l))
+        code = proc.wait()
+        if code != 0:
+            raise errors.CompileException("Return code is not zero")
+        else:
+            return True
 
 
 def local_install(path,quiet=False):
-	pk_info = utils.cpmfile(path)
-	utils.printex("Installing {name}".format(name=pk_info['name']),quiet)
-	with utils.runin_path(pk_info['install'],path) as proc:
-		for l in proc.stdout:
-			utils.printex("[InstallProcess]: {line}".format(line=l))
-		code = proc.wait()
-		if code != 0:
-			raise errors.InstallExcption("Return code is not zero")
-		else:
-			return True
+    pk_info = utils.cpmfile(path)
+    utils.printex("Installing {name}".format(name=pk_info['name']),quiet)
+    with utils.runin_path(pk_info['install'],path) as proc:
+        for l in proc.stdout:
+            utils.printex("[InstallProcess]: {line}".format(line=l))
+        code = proc.wait()
+        if code != 0:
+            raise errors.InstallExcption("Return code is not zero")
+        else:
+            return True
 
 
 def main():
-	parser = argparse.ArgumentParser(description="Make compile packages faster. Any code error please open a issue at https://github.com/thislight/cpm")
-	parser.add_argument('install',metavar='<path>',nargs='*',type=str,help='paackage path')
-	args = parser.parse_args()
-	if args.install:
-		for v in args.install:
-			local_compile(v)
-			local_install(v)
-	else:
-		print("I don't know how can i do.(x o x)")
+    parser = argparse.ArgumentParser(description="Make compiling packages faster. Any code error please open a issue at https://github.com/thislight/cpm")
+    parser.add_argument('op',metavar='<op.>',type=str,help='do something')
+    parser.add_argument('path',metavar='<path>',nargs='*',default='.',type=str,help='path')
+    parser.add_argument('--quiet','-q',action='store_true',default=False,help='Stop print infomation',dest='isquiet')
+    args = parser.parse_args()
+    # ...
+    if args.op == "install":
+        for v in args.path:
+            local_compile(v,args.isquiet)
+            local_install(v,args.isquiet)
+    elif args.op == "compile":
+        for v in args.path:
+            local_compile(v,args.isquiet)
+    else:
+        print("I don't know how can i do.(x o x)")
 
 if __name__ == "__main__":
-	main()
-
-
-
-
-
-
+    main()

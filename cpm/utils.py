@@ -31,7 +31,7 @@ def cpmfile_exists(p):
 
 def cpmfile(p):
 	file_path = cpmfile_path(p)
-	package_info = json.load(open(file_path)) if cpmfile_exists(p) else throw(FileNotFoundError("Could not find cpmfile.json at {}".format(p)))
+	package_info = json.load(open(file_path)) if cpmfile_exists(p) else throw(FileNotFoundError("Could not find cpmfile.json at {}".format(path.abspath(p))))
 	return package_info
 
 def printex(s,isquiet=False):
@@ -40,5 +40,3 @@ def printex(s,isquiet=False):
 
 def runin_path(x,p):
 	return Popen(x, stdout=PIPE, shell=True, cwd=p)
-
-
