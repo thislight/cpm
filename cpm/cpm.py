@@ -30,7 +30,7 @@ def local_compile(path,quiet=False):
     utils.printex("Compiling {name}...".format(name=pk_info['name']),quiet)
     with utils.runin_path(pk_info['compile'],path) as proc:
         for l in proc.stdout:
-            utils.printex("[CompileProcess]: {line}".format(line=l))
+            utils.printex("[CompileProcess]: {line}".format(line=l),quiet)
         code = proc.wait()
         if code != 0:
             raise errors.CompileException("Return code is not zero")
@@ -43,7 +43,7 @@ def local_install(path,quiet=False):
     utils.printex("Installing {name}".format(name=pk_info['name']),quiet)
     with utils.runin_path(pk_info['install'],path) as proc:
         for l in proc.stdout:
-            utils.printex("[InstallProcess]: {line}".format(line=l))
+            utils.printex("[InstallProcess]: {line}".format(line=l),quiet)
         code = proc.wait()
         if code != 0:
             raise errors.InstallExcption("Return code is not zero")
@@ -53,7 +53,7 @@ def local_install(path,quiet=False):
 
 def main():
     parser = argparse.ArgumentParser(description="Make compiling packages faster. Any code error please open a issue at https://github.com/thislight/cpm")
-    parser.add_argument('op',metavar='<op.>',type=str,help='do something')
+    parser.add_argument('op',metavar='<op.>',choices=['install','compile'],type=str,help='do something')
     parser.add_argument('path',metavar='<path>',nargs='*',default='.',type=str,help='path')
     parser.add_argument('--quiet','-q',action='store_true',default=False,help='Stop print infomation',dest='isquiet')
     args = parser.parse_args()
