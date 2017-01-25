@@ -1,0 +1,5 @@
+{
+"name" : "cpm",
+"compile" : "",
+"install" : "python3 setup.py install"
+}
