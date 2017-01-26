@@ -25,14 +25,22 @@ cd cpm
 python setup.py install
 ````
 
+If you are update cpm from old version:
+
+````
+git clone https://github.com/thislight/cpm.git
+cd cpm
+sudo cpm install
+````
+
 Use `cpm -h` to verify that it is installed correctly
 
 ## How to use
-`cpm [[<path>] <path>...]` to install some packages.
+`cpm install [[<path>] <path>...]` to install some packages.
 
 Example:
 ````
-# cpm Python-3.6.0
+# cpm install Python-3.6.0
 Installing python
 [...]
 ````
