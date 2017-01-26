@@ -38,6 +38,7 @@ def local_compile(path,quiet=False):
         if code != 0:
             raise errors.CompileException("Return code is not zero")
         else:
+            utils.printex("Compile complete",quiet)
             return True
 
 
@@ -51,6 +52,7 @@ def local_install(path,quiet=False):
         if code != 0:
             raise errors.InstallExcption("Return code is not zero")
         else:
+            utils.printex("Install complete",quiet)
             return True
 
 
