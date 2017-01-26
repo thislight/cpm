@@ -46,7 +46,7 @@ Compiling python...
 Installing python...
 [...]
 ````
-Well, you can use `cpm install`, it mean 'cpm install .'.
+Well, you can use `cpm install`, it mean `cpm install .`.
 
 
 `cpm compile [<path> [<path>...]]` compile some packages.
