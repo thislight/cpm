@@ -36,15 +36,31 @@ sudo cpm install
 Use `cpm -h` to verify that it is installed correctly
 
 ## How to use
-`cpm install [[<path>] <path>...]` to install some packages.
+`cpm install [[<path>] <path>...]` install some packages.
 
 Example:
 ````
-# cpm install Python-3.6.0
-Installing python
+$ sudo cpm install .
+Compiling python...
+[...]
+Installing python...
 [...]
 ````
-cpm will read \<path\>/cpmfile.json to get infomation.
+Well, you can use `cpm install`, it mean 'cpm install .'.
+
+
+`cpm compile [<path> [<path>...]]` compile some packages.
+
+Example:
+````
+$ cpm compile .
+Compiling python...
+[...]
+````
+Well, you can use `cpm compile`, it mean `cpm compile .`.
+
+
+cpm will read *cpmfile.json* to get infomation.  
 A basic cpmfile.json example:
 ````json
 {
@@ -55,6 +71,8 @@ A basic cpmfile.json example:
 ````
 
 ## License
+GNU GPL v3
+
     cpm - Make compilation easy
     Copyright (C) 2016  thislight
 
