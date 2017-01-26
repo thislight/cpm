@@ -44,7 +44,7 @@ def local_compile(path,quiet=False):
 
 def local_install(path,quiet=False):
     pk_info = utils.cpmfile(path)
-    utils.printex("Installing {name}".format(name=pk_info['name']),quiet)
+    utils.printex("Installing {name}...".format(name=pk_info['name']),quiet)
     with utils.runin_path(pk_info['install'],path) as proc:
         for l in proc.stdout:
             utils.printex("[InstallProcess]: {line}".format(line=l),quiet)
