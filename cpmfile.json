@@ -1,5 +1,6 @@
 {
 "name" : "cpm",
 "compile" : "",
-"install" : "python3 setup.py install"
+"install" : "python3 setup.py install",
+"test" : "cpm -h>/dev/null;echo $$"
 }
