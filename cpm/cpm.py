@@ -58,7 +58,7 @@ def local_install(path,quiet=False):
 
 def main():
     parser = argparse.ArgumentParser(description="Make compiling packages faster. Any code error please open a issue at https://github.com/thislight/cpm")
-    parser.add_argument('op',metavar='<op.>',choices=['install','compile'],type=str,help='do something')
+    parser.add_argument('op',metavar='<op.>',choices=['install','compile'],type=str,help='choices: install,compile')
     parser.add_argument('path',metavar='<path>',nargs='*',default='.',type=str,help='path')
     parser.add_argument('--quiet','-q',action='store_true',default=False,help='Stop print infomation',dest='isquiet')
     args = parser.parse_args()
