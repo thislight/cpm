@@ -43,3 +43,22 @@ def runin_path(x,p):
 
 def is_str_empty(s):
     return (not s) or (len(s)==0)
+
+
+def run_module(cpms,module_name,p):
+    return runin_path(cpms[module_name],p)
+
+
+def module_name(main,mod):
+    if is_str_empty(mod):
+        return main
+    else:
+        return "{}-{}".format(main,mod)
+
+def p_name(cpms):
+    return cpms['name']
+
+
+def printall(g,isquiet):
+    for l in g:
+        printex(l,isquiet)

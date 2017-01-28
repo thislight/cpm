@@ -25,13 +25,23 @@ from . import errors
 from subprocess import Popen,PIPE
 
 
-def local_compile(path,quiet=False):
-    pk_info = utils.cpmfile(path)
-    if utils.is_str_empty(pk_info.get('compile',None)):
+def run(path,what,modc=None):
+    info = utils.cpmfile(path)
+    mod_name = utils.module_name(what,modc)
+    cmd = info.get(mod_name,None)
+    if not cmd:
+        return False,None
+    proc = utils.run_module(info,mod_name,path)
+    return proc,info
+
+
+def local_compile(path,modc=None,quiet=False):
+    p,info = run(path,'compile',modc)
+    if not p:
         utils.printex('Compile passed, compile module is empty.',quiet)
         return True
-    utils.printex("Compiling {name}...".format(name=pk_info['name']),quiet)
-    with utils.runin_path(pk_info['compile'],path) as proc:
+    utils.printex("Compiling {name}...".format(name=utils.p_name(info)),quiet)
+    with p as proc:
         for l in proc.stdout:
             utils.printex("[CompileProcess]: {line}".format(line=l),quiet)
         code = proc.wait()
@@ -42,10 +52,10 @@ def local_compile(path,quiet=False):
             return True
 
 
-def local_install(path,quiet=False):
-    pk_info = utils.cpmfile(path)
-    utils.printex("Installing {name}...".format(name=pk_info['name']),quiet)
-    with utils.runin_path(pk_info['install'],path) as proc:
+def local_install(path,modc=None,quiet=False):
+    p,info = run(path,'install',modc)
+    utils.printex("Installing {name}...".format(name=utils.p_name(info)),quiet)
+    with p as proc:
         for l in proc.stdout:
             utils.printex("[InstallProcess]: {line}".format(line=l),quiet)
         code = proc.wait()
@@ -56,21 +66,29 @@ def local_install(path,quiet=False):
             return True
 
 
+def install_helper(*args,**kargs):
+    local_compile(*args,**kargs)
+    local_install(*args,**kargs)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Make compiling packages faster. Any code error please open a issue at https://github.com/thislight/cpm")
-    parser.add_argument('op',metavar='<op.>',choices=['install','compile'],type=str,help='choices: install,compile')
-    parser.add_argument('path',metavar='<path>',nargs='*',default='.',type=str,help='path')
+    parser.add_argument('op',metavar='<op.>',choices=['install','compile','module'],type=str,help='choices: install,compile,module')
+    parser.add_argument('--module','-m',default=None,type=str,help='Run a module',dest='module')
+    parser.add_argument('args',metavar='<args>',nargs='*',default='.',type=str,help='args')
     parser.add_argument('--quiet','-q',action='store_true',default=False,help='Stop print infomation',dest='isquiet')
     args = parser.parse_args()
     # ...
     utils.printex('Please wait...',args.isquiet)
     if args.op == "install":
-        for v in args.path:
-            local_compile(v,args.isquiet)
-            local_install(v,args.isquiet)
+        for v in args.args:
+            install_helper(v,quiet=args.isquiet,modc=args.module)
     elif args.op == "compile":
-        for v in args.path:
-            local_compile(v,args.isquiet)
+        for v in args.args:
+            local_compile(v,quiet=args.isquiet,modc=args.module)
+    elif args.op == "module":
+        for v in args.args:
+            utils.printall(run('.',v,args.module)[0].stdout,args.isquiet)
     else:
         print("I don't know how can i do.(x o x)")
 
