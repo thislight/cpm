@@ -71,9 +71,20 @@ def install_helper(*args,**kargs):
     local_install(*args,**kargs)
 
 
+def run_module_helper(args,with_at=False):
+    for v in args.args:
+        module_name = args.op
+        if with_at:
+            module_name = args.op[1:]
+        p,info = run(v,module_name,args.module) if with_at else run('.',v,args.module)
+        if not p:
+            raise errors.ModuleNotFoundError("Could not find module {name} in {file}".format(name=module_name,file=utils.cpmfile_path(v)))
+        utils.printall(p.stdout,args.isquiet) # function run return a tuple
+
+
 def main():
     parser = argparse.ArgumentParser(description="Make compiling packages faster. Any code error please open a issue at https://github.com/thislight/cpm")
-    parser.add_argument('op',metavar='<op.>',choices=['install','compile','module'],type=str,help='choices: install,compile,module')
+    parser.add_argument('op',metavar='<op.>',type=str,help='choices: install,compile,module')
     parser.add_argument('--module','-m',default=None,type=str,help='Run a module',dest='module')
     parser.add_argument('args',metavar='<args>',nargs='*',default='.',type=str,help='args')
     parser.add_argument('--quiet','-q',action='store_true',default=False,help='Stop print infomation',dest='isquiet')
@@ -87,8 +98,9 @@ def main():
         for v in args.args:
             local_compile(v,quiet=args.isquiet,modc=args.module)
     elif args.op == "module":
-        for v in args.args:
-            utils.printall(run('.',v,args.module)[0].stdout,args.isquiet)
+        run_module_helper(args)
+    elif args.op.startswith('%'):
+        run_module_helper(args,with_at=True)
     else:
         print("I don't know how can i do.(x o x)")
 
