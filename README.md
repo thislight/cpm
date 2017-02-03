@@ -1,6 +1,7 @@
 # cpm
 
 [![Join the chat at https://gitter.im/cpm-project/Lobby](https://badges.gitter.im/cpm-project/Lobby.svg)](https://gitter.im/cpm-project/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Make compilation easy
 
 ## Quick Start
@@ -60,6 +61,18 @@ Compiling python...
 [...]
 ````
 Well, you can use `cpm compile`, it mean `cpm compile .`.
+
+
+`cpm module xxx` or `cpm %xxx` run some modules of *cpmfile.json*.
+
+Example:
+````
+$ cpm module xxx
+[...]
+$ cpm %xxx
+[...]
+````
+They run cpm with current path.
 
 
 cpm will read *cpmfile.json* to get infomation.  
