@@ -26,3 +26,7 @@ class CompileException(CPMError):
 
 class InstallException(CPMError):
 	pass
+
+
+class ModuleNotFoundError(CPMError):
+    pass
